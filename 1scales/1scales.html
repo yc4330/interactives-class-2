@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scale Linear Example</title>
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+  <h1>Scale Linear Example</h1>
+  <div id="result"></div>
+</body>
+
+<script>
+    //Create a scaleLinear that maps values from a domain of [0, 100] to a range of [0, 500]. 
+    // Use this scale to transform the value 50 and output the result.
+
+    var ScaleLinear = d3.scaleLinear()
+            .domain([0, 100])
+            .range([0, 500]);
+
+    console.log(ScaleLinear(50));
+
+</script>
+</html>

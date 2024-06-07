@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+<body>
+    
+</body>
+
+<script>
+    // Using d3, we are going to load data of different formats into our browser
+    function dataRead(data){
+        console.log(data);
+    }
+
+    // Load data from a CSV file
+    d3.csv("data/boardGames.csv").then(dataRead);
+    // Load data from a TSV file
+    d3.tsv("data/penguins.tsv").then(dataRead);
+    // Load data from a JSON file
+    d3.json("data/loveIsland.json").then(dataRead);
+</script>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <body>
+        <svg width="800" height="800">
+            <div id="tooltip" class="hidden">
+                <p><strong>Important Label Heading</strong></p>
+                <p><span id="value">100</span>%</p>
+            </div>
+
+        </svg>
+    </body>
+
+    <script>
+    var dataSet = 
+        [
+            {"student": "Alice", "studyHours": 44, "examGrade": 50, "subject": "STEM", "year": 2018},
+            {"student": "Bob", "studyHours": 60, "examGrade": 99, "subject": "NON-STEM", "year": 2020},
+            {"student": "Charlie", "studyHours": 23, "examGrade": 50, "subject": "STEM", "year": 2018},
+            {"student": "David", "studyHours": 15, "examGrade": 34, "subject": "STEM", "year": 2019},
+            {"student": "Emma", "studyHours": 10, "examGrade": 20, "subject": "NON-STEM", "year": 2019}
+        ]
+        
+        //Scale Linear
+        var scaleLinear = d3.scaleLinear()
+            .domain([0, 100])
+            .range([0, 600]);
+
+        console.log("scaleLinear(0):", scaleLinear(0));
+        console.log("scaleLinear(50):", scaleLinear(50));
+        console.log("scaleLinear(100):", scaleLinear(100));
+
+        //Scale Ordinal
+        var scaleOrdinal = d3.scaleOrdinal()
+            .domain(["STEM", "NON-STEM"])
+            .range(["pink", "red"]);
+
+        console.log("scaleOrdinal('STEM'):", scaleOrdinal("STEM"));
+        console.log("scaleOrdinal('NON-STEM'):", scaleOrdinal("NON-STEM"));
+
+        //Scale Band
+
+        var scaleBand = d3.scaleBand()
+            .domain(dataSet.map(function(d) { return d.student; }))
+            .range([0, 300]) // Adjust the range as per your desired width range
+            .padding(0); // Adjust the padding between bands as needed
+        
+        console.log("scaleBand('Alice'):", scaleBand("Alice"));
+        console.log("scaleBand('Bob'):", scaleBand("Bob"));
+        console.log("scaleBand('Charlie'):", scaleBand("Charlie"));
+        console.log("scaleBand('David'):", scaleBand("David"));
+        console.log("scaleBand('Emma'):", scaleBand("Emma"));
+
+        //Scale Time
+        var scaleTime = d3.scaleTime()
+            .domain([new Date(2016, 0, 1), new Date()])
+            .range([0, 100]);
+        
+        console.log(new Date(2016, 0, 1), scaleTime(new Date(2016, 0, 1)));
+        console.log(new Date(2018, 0, 1), scaleTime(new Date(2018, 0, 1)));
+        console.log(new Date(), scaleTime(new Date()));
+
+        //Scale Point
+        var scalePoint = d3.scalePoint()
+            .domain(["poor", "good", "great"])
+            .range([0, 100]);
+        
+        console.log('scalePoint("poor")', scalePoint("poor"));
+        console.log('scalePoint("good")', scalePoint("good"));
+        console.log('scalePoint("great")', scalePoint("great"));
+
+        //Scale Log
+        var scaleLog = d3.scaleLog()
+            .domain([0.01, 100])
+            .range([0, 100]);
+        
+        console.log('scaleLog(0.01)', scaleLog(0.01));
+        console.log('scaleLog(1)', scaleLog(1));
+        console.log('scaleLog(100)', scaleLog(100));
+
+        //Scale Sqrt
+        var scaleSqrt = d3.scaleSqrt()
+            .domain([0, 100])
+            .range([0, 50]);
+        
+        console.log('scaleSqrt(0)', scaleSqrt(0));
+        console.log('scaleSqrt(50)', scaleSqrt(50));
+        console.log('scaleSqrt(100)', scaleSqrt(100));
+
+    </script>
+</html>

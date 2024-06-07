@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <body>
+        <svg width="800" height="800">
+            <div id="tooltip" class="hidden">
+                <p><strong>Important Label Heading</strong></p>
+                <p><span id="value">100</span>%</p>
+            </div>
+
+        </svg>
+    </body>
+
+    <script>
+    var dataSet = 
+        [
+            {"student": "Alice", "studyHours": 44, "examGrade": 50, "subject": "STEM", "year": 2018},
+            {"student": "Bob", "studyHours": 60, "examGrade": 99, "subject": "NON-STEM", "year": 2020},
+            {"student": "Charlie", "studyHours": 23, "examGrade": 50, "subject": "STEM", "year": 2018},
+            {"student": "David", "studyHours": 15, "examGrade": 34, "subject": "STEM", "year": 2019},
+            {"student": "Emma", "studyHours": 10, "examGrade": 20, "subject": "NON-STEM", "year": 2019}
+        ]
+        
+        
+        //Scale Linear
+        var scaleLinear = d3.scaleLinear()
+            .domain([0, 100])
+            .range([0, 600]);
+
+        //Scale Ordinal
+        var scaleOrdinal = d3.scaleOrdinal()
+            .domain(["STEM", "NON-STEM"])
+            .range(["pink", "red"]);
+
+        //Scale Band
+
+        var scaleBand = d3.scaleBand()
+            .domain(dataSet.map(function(d) { return d.student; }))
+            .range([0, 300]) // Adjust the range as per your desired width range
+            .padding(0.2); // Adjust the padding between bands as needed
+        
+
+        d3.select('svg').selectAll("rect")
+            .data(dataSet)
+            .join("rect")
+            .attr("x", 0)
+            .attr("height", 50)
+            .attr("y", function(d){ return scaleBand(d.student); })
+            .attr("width", function(d){ return scaleLinear(d.studyHours); })
+            .attr("fill", function(d){ return scaleOrdinal(d.subject); })
+            .on("mouseover", function (event, d) {
+                console.log("event: ", event.type)
+                console.log("data: ", d)
+                console.log("student: ", d.student)})
+
+    </script>
+</html>

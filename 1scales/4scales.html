@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<body>
+    
+</body>
+
+<script>
+    //Create a scaleBand that maps the input domain ["apple", "banana", "orange"] to an output range of [0, 300]. 
+    //Use this scale to transform the input value "banana" and output the result.
+    var dataset = ["apple", "banana", "orange"]
+    var ScaleBand = d3.scaleBand()
+            .domain(dataset)
+            .range([0, 300]);
+    console.log(ScaleBand("banana"));
+</script>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <body>
+        <svg width="800" height="800">
+
+        </svg>
+    </body>
+
+    <script>
+    var dataSet = 
+        [
+            {"student": "Alice", "studyHours": 44, "examGrade": 50, "subject": "STEM", "difficulty": 10},
+            {"student": "Bob", "studyHours": 60, "examGrade": 99, "subject": "NON-STEM", "difficulty": 9},
+            {"student": "Charlie", "studyHours": 23, "examGrade": 50, "subject": "STEM", "difficulty": 5},
+            {"student": "David", "studyHours": 15, "examGrade": 34, "subject": "STEM", "difficulty": 4},
+            {"student": "Emma", "studyHours": 10, "examGrade": 20, "subject": "NON-STEM", "difficulty": 8}
+        ]
+        
+        //Scale Linear - Exam Grade
+        var examScaleLinear = d3.scaleLinear()
+            .domain([0, 100])
+            .range([200, 0]);
+        
+        //Scale Linear - Study Hours
+        var studyScaleLinear = d3.scaleLinear()
+            .domain([0, 60])
+            .range([0, 300]);
+
+        //Scale Ordinal
+        var scaleOrdinal = d3.scaleOrdinal()
+            .domain(["STEM", "NON-STEM"])
+            .range(["pink", "red"]);
+
+        //Scale Band
+        var scaleBand = d3.scaleBand()
+            .domain(dataSet.map(function(d) { return d.student; }))
+            .range([0, 300]) // Adjust the range as per your desired width range
+            .padding(0); // Adjust the padding between bands as needed
+        
+
+        //Scale Sqrt
+        var scaleSqrt = d3.scaleSqrt()
+            .domain([0, 10])
+            .range([0, 20]);
+
+
+        //Build a plot where there is a circle for every data point, where the x position is 
+        //proportional to the examGrade, the y position is proportional to the studyHours,
+        //and the radius is proportional to the difficulty, and the color is based on the subject
+
+        d3.select("svg")
+            .selectAll("circle")
+            .data(dataSet)
+            .join("circle")
+            .attr("cx", function(d) { return 50+examScaleLinear(d.examGrade); })
+            .attr("cy", function(d) { return 500-studyScaleLinear(d.studyHours); })
+            .attr("r", function(d) { return scaleSqrt(d.difficulty); })
+            .attr("fill", function(d) { return scaleOrdinal(d.subject); });
+        
+        d3.select("svg")
+            .selectAll("text")
+            .data(dataSet)
+            .join("text")
+            .attr("x", function(d) { return 50+examScaleLinear(d.examGrade); })
+            .attr("y", function(d) { return 500-studyScaleLinear(d.studyHours); })
+            .text(function(d) { return d.student; })
+            .attr("fill", "black")
+
+        d3.select("svg")
+            .append("path")
+            .attr("d", "M50,500 L50,0 L50,500 L550,500")
+            .attr("stroke", "black")
+            .attr("stroke-width", 2)
+
+    </script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<body>
+    
+</body>
+
+<script>
+    //Use a scaleLinear to map the values from a dataset [10, 20, 30, 40, 50] to a range of [0, 100]. 
+    //Apply this scale to each value in the dataset and output the transformed values.
+    var dataset = [10, 20, 30, 40, 50]
+    var ScaleLinear = d3.scaleLinear()
+            .domain([0, d3.max(dataset)])
+            .range([0, 100]);
+    var result = dataset.map(function(d){
+        return ScaleLinear(d);
+    });
+    console.log(result);
+    
+</script>
+</html>

@@ -1,0 +1,23 @@
+[
+    {"student": "Maina", "studyHours": 0, "examGrade": 0},
+    {"student": "Alice", "studyHours": 44, "examGrade": 50},
+    {"student": "Bob", "studyHours": 60, "examGrade": 99},
+    {"student": "Charlie", "studyHours": 23, "examGrade": 50},
+    {"student": "David", "studyHours": 15, "examGrade": 34},
+    {"student": "Emma", "studyHours": 10, "examGrade": 20},
+    {"student": "Frank", "studyHours": 25, "examGrade": 65},
+    {"student": "Grace", "studyHours": 46, "examGrade": 35},
+    {"student": "Hannah", "studyHours": 30, "examGrade": 30},
+    {"student": "Isaac", "studyHours": 8, "examGrade": 10},
+    {"student": "Julia", "studyHours": 35, "examGrade": 79},
+    {"student": "Kevin", "studyHours": 52, "examGrade": 65},
+    {"student": "Lily", "studyHours": 39, "examGrade": 50},
+    {"student": "Mia", "studyHours": 16, "examGrade": 30},
+    {"student": "Noah", "studyHours": 30, "examGrade": 53},
+    {"student": "Olivia", "studyHours": 40, "examGrade": 56},
+    {"student": "Patrick", "studyHours": 45, "examGrade": 75},
+    {"student": "Quinn", "studyHours": 14, "examGrade": 49},
+    {"student": "Ryan", "studyHours": 23, "examGrade": 59},
+    {"student": "Aisvarya", "studyHours": 65, "examGrade": 100}
+  ]
+  

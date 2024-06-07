@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="./styles.css"></link>
+        <title>My Updating Chart</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <body>
+        <svg height="200" width="500" id="svg"></svg>
+    </body>
+
+    <script>
+        const rectColors = [
+            "yellowgreen",
+            "cornflowerblue",
+            "seagreen",
+            "slateblue",
+        ]
+
+        // create and bind data to our rects
+        const rects = d3.select("#svg")
+            .selectAll(".rect")
+            .data(rectColors)
+            .join("rect")
+            .attr("height", 100)
+            .attr("width", 100)
+            .attr("x", (d,i) => i * 110)
+            .attr("fill", "lightgrey")
+            .on("mouseover", handleMouseOver)
+
+        function handleMouseOver(event, d) {
+            //write a command where when you hover over a rect, 
+            //it changes color to the color of the data that it is bound to
+            d3.select(this).attr("fill", "yellow")
+        }
+
+
+
+    </script>
+</html>

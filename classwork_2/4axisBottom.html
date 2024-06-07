@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+    <body>
+        <svg width="800" height="800">
+
+        </svg>
+    </body>
+
+    <script>
+    var dataSet = 
+        [
+            {"student": "Alice", "studyHours": 44, "examGrade": 50, "subject": "STEM", "difficulty": 10},
+            {"student": "Bob", "studyHours": 60, "examGrade": 99, "subject": "NON-STEM", "difficulty": 9},
+            {"student": "Charlie", "studyHours": 23, "examGrade": 50, "subject": "STEM", "difficulty": 5},
+            {"student": "David", "studyHours": 15, "examGrade": 34, "subject": "STEM", "difficulty": 4},
+            {"student": "Emma", "studyHours": 10, "examGrade": 20, "subject": "NON-STEM", "difficulty": 8}
+        ]
+        
+        //Scale Linear - Exam Grade
+        var examScaleLinear = d3.scaleLinear()
+            .domain([0, 100])
+            .range([0, 800]);
+        
+        var svg = d3.select('svg')
+
+        //Create the x axis
+        var xAxis =   svg.append("g")
+                        .call(d3.axisBottom(examScaleLinear));
+
+    
+    </script>
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bar Chart</title>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+</head>
+<body>
+    <div id="chart-space"></div>
+
+    <script>
+
+        //accessing data
+        d3.json("data/grade.json").then(visualizeData);
+
+        var width = 900; //svg width
+        var height = 500; //svg height
+
+        var margin = {top: 30, right: 30, bottom: 30, left: 30};
+        var chartWidth = width - margin.left - margin.right; 
+        var chartHeight = height - margin.top - margin.bottom;
+
+        function visualizeData(data) {
+            console.log(data);
+
+            // Sort the data in descending order
+            data.sort(function(a, b) {
+            return  a.examGrade - b.examGrade;
+            });
+
+            //the svg canvas
+            var svg = d3.select("#chart-space")
+                .append("svg")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            //determine the x and y scales
+            var xScale = d3.scaleBand()
+                .domain(data.map(function(d) { return d.student; }))
+                .range([0, chartWidth])
+                .padding(0.2);
+
+            var yScale = d3.scaleLinear()
+                .domain([0, d3.max(data, function(d) { return d.examGrade; })])
+                .range([chartHeight, 0]);
+
+            //draw the actual plot 
+            var bars = svg.selectAll("rect")
+                .data(data)
+                .join("rect")
+                .attr("x", function(d) { return xScale(d.student); })
+                .attr("y", function(d){return(chartHeight-yScale(d.examGrade))})
+                .attr("width", xScale.bandwidth())
+                .attr("height", function(d) { return yScale(d.examGrade) })
+                .attr("fill", "hotpink")
+                .attr("rx",5)
+                .attr("ry",5)
+                .on("mouseover", handleMouseOver)
+                .on("mouseout", handleMouseOut);
+
+            function handleMouseOver(event, d) {
+                console.log("event", event.type);
+                console.log("data", d);
+                d3.select(this)
+                    .attr("fill", "orange")
+                    .style("cursor", "pointer");
+
+                svg.append("text")
+                    .attr("class", "tooltip")
+                    .attr("x", xScale(d.student) + xScale.bandwidth() / 2)
+                    .attr("y", -yScale(d.examGrade)+chartHeight-10 )
+                    .text(100-d.examGrade)
+                    .style("font-size", "12px")
+                    .style("font-weight", "bold")
+                    .attr("text-anchor", "middle");
+            }
+
+            function handleMouseOut(event, d) {
+                console.log("event", event.type);
+                console.log("data", d);
+                d3.select(this)
+                    .attr("fill", "hotpink")
+                    .style("cursor", "default");
+
+                svg.select(".tooltip").remove();
+            }
+
+            
+            var xAxis = svg.append("g")
+                .attr("transform", "translate(0," + chartHeight + ")")
+                .call(d3.axisBottom(xScale))
+                .call(g => g.select(".domain").remove());
+
+            var yAxis = svg.append("g")
+                .call(d3.axisLeft(yScale))
+                .call(g => g.select(".domain").remove());
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: pink;
+        }
+
+        .tooltip {
+            fill: black;
+        }
+        .tick line{
+                visibility:hidden;
+        }
+    </style>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<body>
+    <div id="chart-space">
+
+    </div>
+</body>
+
+<script>
+    // Load the dataset grade.json from the data folder and print the data out 
+    d3.json("data/grade.json").then(visualizeData)
+
+    //set dimensions for the chart
+    var width = 500;
+    var height = 500;
+
+    var margin = {top: 20, right: 20, bottom: 20, left: 20};
+    var chartWidth = width - margin.left - margin.right;
+    var chartHeight = height - margin.top - margin.bottom;
+
+
+    function visualizeData(data)
+    {
+        console.log(data);
+
+        var svg = d3.select("#chart-space")
+                    .append("svg")
+                    .attr("width", width)
+                    .attr("height", height);
+        
+        var xScale = d3.scaleLinear()
+                        .domain([0, 100])
+                        .range([0, chartWidth]); 
+
+        var yScale = d3.scaleLinear()
+                        .domain([0, d3.max(data, function(d){return d.studyHours})])
+                        .range([chartHeight, 0]);
+
+        //Give attributes to the circles so that the x and y position is based on the exam and study hours
+            //make the radius of the circles 10
+            //Hint: use the xScale and yScale to set the cx and cy attributes
+            
+        var circles = svg.selectAll("circle")
+                        .data(data)
+                        .join("circle")
+
+        
+    }
+</script>
+
+<style>
+    svg{
+        border: 1px solid black;
+    }
+</style>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>My Updating Chart</title>
+    </head>
+    <script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+
+    <body>
+        <svg height="200" width="500" id="svg"></svg>
+    </body>
+
+    <script>
+        const rectColors = [
+            "yellowgreen",
+            "cornflowerblue",
+            "seagreen",
+            "slateblue",
+        ]
+
+        // create and bind data to our rects
+        const rects = d3.select("svg")
+            .selectAll(".rect")
+            .data(rectColors)
+            .join("rect")
+            .attr("height", 100)
+            .attr("width", 100)
+            .attr("x", (d,i) => i * 110)
+            .attr("fill", "lightgrey")
+            .on("mouseover", handleMouseOver)
+
+        function handleMouseOver(e, d) {
+          console.log("Data:", d);
+        }
+    </script>
+</html>

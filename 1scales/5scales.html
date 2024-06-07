@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://d3js.org/d3.v7.min.js"></script>
+
+<body>
+    
+</body>
+
+<script>
+    //Use a scaleOrdinal to map the values from a dataset ["A", "B", "C", "D", "E"] to an output range of [10, 20, 30, 40, 50]. 
+    //Apply this scale to each value in the dataset and output the transformed values.
+    var dataset = ["A", "B", "C", "D", "E"]
+    var ScaleOrdinal = d3.scaleOrdinal()
+            .domain(dataset)
+            .range([10, 20, 30, 40, 50]);
+    var result = dataset.map(function(d){
+        return ScaleOrdinal(d);
+    });
+    console.log(result);
+</script>
+</html>

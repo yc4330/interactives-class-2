@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<body>
+    <svg width="800" height="200">
+    </svg>
+</body>
+
+<script>
+    //Combine multiple scale types to create a visualization. 
+    //Use scaleLinear to map a dataset of values [10, 20, 30, 40, 50] to a range of [0, 500] on the x-axis. 
+    //Use scaleSqrt to map another dataset of values [100, 200, 300, 400, 500] to a range of [0, 100] on the y-axis. 
+    //Plot the transformed values on a 2D scatter plot.
+    var dataset1 = [10, 20, 30, 40, 50]
+    var dataset2 = [100, 200, 300, 400, 500]
+    var scalex = d3.scaleLinear()
+            .domain([0, d3.max(dataset1)])
+            .range([0, 500]);
+    var scaley = d3.scaleSqrt()
+            .domain([0, d3.max(dataset2)])
+            .range([0, 100]);
+    var combinedData = dataset1.map(function(d, i) {
+        return [scalex(d), scaley(dataset2[i])];
+    });
+    console.log(combinedData)
+    console.log(combinedData[0][0])
+
+    d3.select("svg")
+            .selectAll("circle")
+            .data(combinedData)
+            .join("circle")
+            .attr("cx", function(d) {
+                return d[0];
+            })
+            .attr("cy", function(d) {
+                return d[1];
+            })
+            .attr("r", 5)
+            .attr("fill", "black");
+
+
+</script>
+</html>
